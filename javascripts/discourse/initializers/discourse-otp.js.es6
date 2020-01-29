@@ -22,7 +22,7 @@ function attachOtp($elem, helper) {
 }
 
 function initialize(api) {
-  api.decorateCooked(attachOtp, { onlyStream: true, id: "discourse-otp" });
+  api.decorateCooked(attachOtp, { id: "discourse-otp" });
 }
 
 export default {
