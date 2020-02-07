@@ -3,9 +3,5 @@
   "component": true,
   "about_url": null,
   "license_url": null,
-  "assets": {
-    "jsotp": "assets/jsOTP.min.js"
-  },
-  "color_schemes": {
-  }
+  "color_schemes": {}
 }

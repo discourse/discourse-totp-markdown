@@ -1,13 +1,10 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import loadScript from "discourse/lib/load-script";
 
 function generateOtp($elem) {
-  loadScript(settings.theme_uploads.jsotp).then(() => {
-    const key = $elem.data("secret");
-    const totp = new jsOTP.totp();
-    $elem.html("<div class='totp-code'>" + totp.getOtp(key) + "</div>");
-    Em.run.later(() => attachButton($elem), 30000);
-  });
+  const key = $elem.data("secret");
+  const totp = new jsOTP.totp();
+  $elem.html("<div class='totp-code'>" + totp.getOtp(key) + "</div>");
+  Em.run.later(() => attachButton($elem), 30000);
 }
 
 function attachButton($elem) {
