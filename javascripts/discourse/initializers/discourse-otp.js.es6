@@ -1,28 +1,28 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import loadScript from "discourse/lib/load-script";
+import { later } from "@ember/runloop";
+import TinyTOTP from "../vendor/tiny-totp";
 
-function generateOtp($elem) {
-  loadScript(settings.theme_uploads.jsotp).then(() => {
-    const key = $elem.data("secret");
-    const totp = new jsOTP.totp();
-    $elem.html("<div class='totp-code'>" + totp.getOtp(key) + "</div>");
-    Em.run.later(() => attachButton($elem), 30000);
-  });
+async function generateOtp(element) {
+  const key = element.dataset.secret;
+  const totp = new TinyTOTP(key);
+  const code = await totp.gen();
+  element.innerHTML = `<div class='totp-code'>${code}</div>`;
+  later(() => attachButton(element), 30000);
 }
 
-function attachButton($elem) {
-  $elem.html("<button class='btn'>Generate OTP</button>");
-  $elem.find("button").on("click", () => generateOtp($elem));
+function attachButton(element) {
+  element.innerHTML = "<button class='btn'>Generate OTP</button>";
+  element
+    .querySelector("button")
+    .addEventListener("click", () => generateOtp(element));
 }
 
-function attachOtp($elem, helper) {
-  $elem.find("div[data-wrap=discourse-otp]").each((idx, val) => {
-    attachButton($(val));
-  });
+function attachOtp(elem, helper) {
+  elem.querySelectorAll("div[data-wrap=discourse-otp]").forEach(attachButton);
 }
 
 function initialize(api) {
-  api.decorateCooked(attachOtp, { id: "discourse-otp" });
+  api.decorateCookedElement(attachOtp, { id: "discourse-otp" });
 }
 
 export default {
@@ -30,5 +30,5 @@ export default {
 
   initialize() {
     withPluginApi("0.8.28", initialize);
-  }
+  },
 };
