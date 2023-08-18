@@ -1,6 +1,6 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { later } from "@ember/runloop";
-import TinyTOTP from "../vendor/tiny-totp";
+import TinyTOTP from "../../vendor/tiny-totp";
 
 async function generateOtp(element) {
   const key = element.dataset.secret;
