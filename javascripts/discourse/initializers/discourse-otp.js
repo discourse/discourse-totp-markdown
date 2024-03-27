@@ -1,5 +1,5 @@
-import { withPluginApi } from "discourse/lib/plugin-api";
 import { later } from "@ember/runloop";
+import { withPluginApi } from "discourse/lib/plugin-api";
 import TinyTOTP from "../../vendor/tiny-totp";
 
 async function generateOtp(element) {
@@ -17,7 +17,7 @@ function attachButton(element) {
     .addEventListener("click", () => generateOtp(element));
 }
 
-function attachOtp(elem, helper) {
+function attachOtp(elem) {
   elem.querySelectorAll("div[data-wrap=discourse-otp]").forEach(attachButton);
 }
 
