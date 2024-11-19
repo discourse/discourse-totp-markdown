@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
 
 Modified from https://github.com/wzychla/tiny-totp.js/blob/e671917d5670871125b6ea35e698c7a2b8907b33/lib/totp.js
