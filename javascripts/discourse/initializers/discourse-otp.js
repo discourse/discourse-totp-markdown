@@ -29,6 +29,6 @@ export default {
   name: "discourse-otp",
 
   initialize() {
-    withPluginApi("0.8.28", initialize);
+    withPluginApi(initialize);
   },
 };
